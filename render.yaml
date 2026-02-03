@@ -1,0 +1,68 @@
+services:
+  - type: web
+    name: sentinelos-backend
+    env: node
+    plan: starter
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    disk:
+      name: sentinelos-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        value: /data/sentinel.db
+      - key: API_TOKEN
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: AGENT_URL
+        sync: false
+      - key: ML_URL
+        sync: false
+
+  - type: web
+    name: sentinelos-ui
+    env: node
+    plan: starter
+    rootDir: ui
+    buildCommand: npm install && npm run build
+    startCommand: node_modules/.bin/next start -p $PORT
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE
+        sync: false
+      - key: NEXT_PUBLIC_API_TOKEN
+        sync: false
+
+  - type: web
+    name: sentinelos-agent
+    env: python
+    plan: starter
+    rootDir: agent
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: BACKEND_URL
+        sync: false
+      - key: ML_URL
+        sync: false
+      - key: API_TOKEN
+        sync: false
+
+  - type: web
+    name: sentinelos-ml
+    env: python
+    plan: starter
+    rootDir: ml
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: BACKEND_URL
+        sync: false
+      - key: API_TOKEN
+        sync: false
+      - key: ANOMALY_SIGMA
+        value: "2.5"

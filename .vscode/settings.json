@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    "**/apps": true
+  },
+  "search.exclude": {
+    "**/apps": true
+  },
+  "typescript.tsserver.exclude": [
+    "**/apps/**"
+  ]
+}

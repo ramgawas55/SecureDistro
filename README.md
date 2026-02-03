@@ -91,7 +91,6 @@ sentctl lockdown --strict
 
 Set `SENTINEL_URL` and `SENTINEL_TOKEN`, or create `~/.sentinelos/config.json`.
 
-## Deployment Notes (Render)
+## Render Deployment
 
-- Backend: Node service, start `npm --workspace backend run start`, persistent disk mounted at `/data` with `DATABASE_URL=/data/sentinel.db`.
-- UI: Node service, start `npm --workspace ui run start` with `NEXT_PUBLIC_API_BASE` pointing to backend.
+Use [render.md](file:///c:/Users/RAM%20SUNIL%20GAWAS/Documents/trae_projects/SecureDistro/docs/render.md) with the included `render.yaml` blueprint.
