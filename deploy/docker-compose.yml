@@ -1,0 +1,53 @@
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    environment:
+      - PORT=4000
+      - DATABASE_URL=/data/sentinel.db
+      - AGENT_URL=http://agent:5001
+      - ML_URL=http://ml:5002
+      - API_TOKEN=${API_TOKEN}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    volumes:
+      - ../data:/data
+    ports:
+      - "4000:4000"
+  ui:
+    build:
+      context: ../ui
+      dockerfile: Dockerfile
+    environment:
+      - NEXT_PUBLIC_API_BASE=http://backend:4000
+      - NEXT_PUBLIC_API_TOKEN=${API_TOKEN}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+  agent:
+    build:
+      context: ../agent
+      dockerfile: Dockerfile
+    environment:
+      - BACKEND_URL=http://backend:4000
+      - ML_URL=http://ml:5002
+      - API_TOKEN=${API_TOKEN}
+    volumes:
+      - ../agent/config.yaml:/app/config.yaml
+    ports:
+      - "5001:5001"
+    depends_on:
+      - backend
+  ml:
+    build:
+      context: ../ml
+      dockerfile: Dockerfile
+    environment:
+      - BACKEND_URL=http://backend:4000
+      - API_TOKEN=${API_TOKEN}
+    ports:
+      - "5002:5002"
+    depends_on:
+      - backend

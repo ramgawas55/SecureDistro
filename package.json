@@ -1,0 +1,17 @@
+{
+  "name": "sentinelos-lite",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "ui",
+    "cli"
+  ],
+  "scripts": {
+    "dev": "concurrently -n backend,ui \"npm --workspace backend run dev\" \"npm --workspace ui run dev\"",
+    "build": "npm --workspace backend run build && npm --workspace ui run build && npm --workspace cli run build",
+    "typecheck": "npm --workspace backend run typecheck && npm --workspace ui run typecheck && npm --workspace cli run typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

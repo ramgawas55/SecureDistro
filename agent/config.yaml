@@ -1,0 +1,16 @@
+backend_url: "http://backend:4000"
+ml_url: "http://ml:5002"
+api_token: ""
+backup_dir: "./backup"
+health_port: 5001
+scan_interval_sec: 10
+thresholds:
+  cpu: 0.85
+  memory: 0.85
+services:
+  - name: "backend"
+    process_pattern: "node"
+    restart_command: "node dist/index.js"
+critical_files:
+  - "/etc/hosts"
+  - "/etc/resolv.conf"

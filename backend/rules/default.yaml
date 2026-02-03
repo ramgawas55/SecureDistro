@@ -1,0 +1,26 @@
+- id: high_severity_event
+  description: High severity event triggers alert
+  enabled: true
+  severity: high
+  match:
+    severity: high
+  actions:
+    - type: telegram
+      name: lockdown
+- id: repeated_login_failures
+  description: Repeated login failure spike
+  enabled: true
+  severity: critical
+  match:
+    eventType: auth_failure
+  threshold:
+    eventType: auth_failure
+    count: 5
+    windowSec: 60
+  actions:
+    - type: agent
+      name: lockdown
+      payload:
+        strict: true
+    - type: telegram
+      name: lockdown
