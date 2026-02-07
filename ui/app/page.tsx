@@ -53,7 +53,7 @@ export default async function OverviewPage() {
             </tr>
           </thead>
           <tbody>
-            {events.events.slice(0, 10).map((event: any) => (
+            {events.events.slice(0, 12).map((event: any) => (
               <tr key={event.id}>
                 <td>{event.timestamp}</td>
                 <td>{event.type}</td>

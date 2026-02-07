@@ -1,6 +1,7 @@
 import initSqlJs from "sql.js";
 import path from "node:path";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import { ActionRecord, AnomalyRecord, EventRecord, MetricSample } from "./types.js";
 
 export type EventFilter = {
@@ -217,8 +218,11 @@ export const createStore = async () => {
     throw new Error("PostgreSQL adapter not configured");
   }
   const filePath = databaseUrl || path.join(process.cwd(), "data", "sentinel.db");
+  const require = createRequire(import.meta.url);
+  const wasmPath = require.resolve("sql.js/dist/sql-wasm.wasm");
+  const wasmDir = path.dirname(wasmPath);
   const SQL = await initSqlJs({
-    locateFile: (file: string) => path.join(process.cwd(), "node_modules", "sql.js", "dist", file)
+    locateFile: (file: string) => path.join(wasmDir, file)
   });
   let db: initSqlJs.Database;
   if (fs.existsSync(filePath)) {
