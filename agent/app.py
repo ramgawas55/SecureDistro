@@ -16,8 +16,20 @@ CONFIG_PATH = os.environ.get("AGENT_CONFIG", "agent/config.yaml")
 
 
 def load_config():
-    with open(CONFIG_PATH, "r", encoding="utf-8") as file:
-        return yaml.safe_load(file)
+    if os.path.exists(CONFIG_PATH):
+        with open(CONFIG_PATH, "r", encoding="utf-8") as file:
+            return yaml.safe_load(file) or {}
+    return {
+        "backend_url": os.environ.get("BACKEND_URL", ""),
+        "ml_url": os.environ.get("ML_URL", ""),
+        "api_token": os.environ.get("API_TOKEN", ""),
+        "backup_dir": "./backup",
+        "health_port": 5001,
+        "scan_interval_sec": 10,
+        "thresholds": {"cpu": 0.85, "memory": 0.85},
+        "services": [],
+        "critical_files": []
+    }
 
 
 config = load_config()
