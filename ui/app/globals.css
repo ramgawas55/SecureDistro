@@ -125,3 +125,12 @@ a {
   border-radius: 12px;
   padding: 12px;
 }
+
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  text-align: center;
+  color: #9aa7b6;
+  font-size: 12px;
+  border-top: 1px solid #1b2230;
+}
