@@ -93,4 +93,6 @@ Set `SENTINEL_URL` and `SENTINEL_TOKEN`, or create `~/.sentinelos/config.json`.
 
 ## Render Deployment
 
-Use [render.md](file:///c:/Users/RAM%20SUNIL%20GAWAS/Documents/trae_projects/SecureDistro/docs/render.md) with the included `render.yaml` blueprint.
+## Credits
+
+- Ram Sunil Gawas

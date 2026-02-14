@@ -26,6 +26,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </nav>
           </header>
           {children}
+          <footer className="footer">
+            <p>Credit: Ram Sunil Gawas</p>
+          </footer>
         </div>
       </body>
     </html>
